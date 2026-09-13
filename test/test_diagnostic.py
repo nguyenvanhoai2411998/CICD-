@@ -23,3 +23,15 @@ def test_change_to_invalid_session():
 
     with pytest.raises(ValueError):
         diagnostic.change_session(0x99)
+
+def test_change_session():
+    diagnostic = DiagnosticService()
+    default_session = diagnostic.session
+    diagnostic.change_session(0x02)
+    programming_session = diagnostic.session
+    diagnostic.change_session(0x03)
+    extended_session = diagnostic.session
+
+    assert default_session == 0x01
+    assert programming_session == 0x02
+    assert extended_session == 0x04
