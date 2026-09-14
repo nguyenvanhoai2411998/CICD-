@@ -34,4 +34,4 @@ def test_change_session():
 
     assert default_session == 0x01
     assert programming_session == 0x02
-    assert extended_session == 0x04
+    assert extended_session == 0x03
