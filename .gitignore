@@ -12,6 +12,7 @@ __pycache__/
 
 # Report files
 reports/
+*.xml
 
 # Test / coverage artifacts
 .pytest_cache/
