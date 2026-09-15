@@ -29,10 +29,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Allure CLI
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Allure
         run: |
-          sudo apt-get update
-          sudo apt-get install -y allure
+          npm install -g allure
+          allure --version
 
       - name: Run tests
         run: |
