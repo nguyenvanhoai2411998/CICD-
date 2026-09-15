@@ -1,12 +1,18 @@
+import allure
 import pytest
 
 from ecu.diagnostic import DiagnosticService
 
-
+@allure.feature("Diagnostic Session")
+@allure.story("Default Session")
 def test_default_session():
     diagnostic = DiagnosticService()
 
-    assert diagnostic.session == 0x01
+    with allure.step("Create diagnostic service"):
+        diagnostic = DiagnosticService()
+
+    with allure.step("Check default session"):
+        assert diagnostic.session == 0x01
 
 
 def test_change_to_extended_session():

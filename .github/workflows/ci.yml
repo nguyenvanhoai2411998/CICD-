@@ -29,15 +29,28 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y allure
+
       - name: Run tests
         run: |
           mkdir -p reports
           python -m pytest \
+            --alluredir=allure-results \
             --junitxml=reports/test-results.xml \
             --cov=src \
             --cov-report=term-missing \
             --cov-report=html \
             --cov-report=xml
+
+      - name: Generate Allure report
+        if: always()
+        run: |
+          allure generate allure-results \
+            --clean \
+            -o allure-report
 
       - name: Upload test reports
         if: always()
@@ -45,6 +58,8 @@ jobs:
         with:
           name: test-reports
           path: |
+            allure-report/
             reports/
             htmlcov/
             coverage.xml
+          retention-days: 7

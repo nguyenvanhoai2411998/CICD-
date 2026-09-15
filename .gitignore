@@ -19,6 +19,7 @@ reports/
 .coverage
 .coverage.*
 htmlcov/
+allure-results/
 
 # IDE/editor settings
 .vscode/
