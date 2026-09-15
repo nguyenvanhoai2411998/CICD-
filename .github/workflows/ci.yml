@@ -34,10 +34,15 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
       - name: Install Allure
         run: |
-          npm install -g allure
-          npm install -g allure-combine
+          npm install -g allure-commandline
           allure --version
           allure-combine --help
 
