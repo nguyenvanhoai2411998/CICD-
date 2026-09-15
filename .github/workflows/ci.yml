@@ -53,9 +53,7 @@ jobs:
       - name: Generate Allure report
         if: always()
         run: |
-          allure generate allure-results \
-          --clean \
-          --output allure-report
+          allure generate allure-results -o allure-report
 
       - name: Upload test reports
         if: always()
