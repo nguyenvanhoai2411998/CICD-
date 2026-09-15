@@ -50,6 +50,21 @@ pip install --upgrade pip
 pip install -r requirements.txt -r requirements-dev.txt
 ```
 
+The `requirements.txt` file installs the Python Allure integration and
+`allure-combine`. The Allure Commandline tool is not a Python package, so it
+must also be installed with Node.js and have Java available on `PATH`:
+
+```bash
+npm install -g allure allure-combine
+allure --version
+allure-combine --help
+```
+
+When pytest runs, `test/conftest.py` uses the `pytest_sessionfinish` hook to
+generate `allure-report` and bundle it as
+`allure-report/combined_index.html`. The hook runs after the test session,
+including when tests fail, provided the pytest process is allowed to finish.
+
 ### 3. Run Tests and Quality Audits
 ```bash
 # Execute unit tests with a coverage breakdown
@@ -69,3 +84,8 @@ The workflow file `.github/workflows/ci-cd.yml` handles automated validation:
 2.  **Environment Setup**: Spins up fresh Ubuntu runners across specified Python matrices.
 3.  **Caching**: Caches `pip` packages to cut consecutive workflow runtime in half.
 4.  **Enforcement**: Pipeline fails early if `flake8` encounters syntax errors or if any `pytest` assertions fail.
+
+The CI workflow installs both Allure command-line tools before running pytest.
+It also generates the standard Allure report with `if: always()`, so the
+report is uploaded even when the test step fails. The CI runner must provide
+Node.js and Java in addition to Python.

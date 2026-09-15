@@ -37,7 +37,9 @@ jobs:
       - name: Install Allure
         run: |
           npm install -g allure
+          npm install -g allure-combine
           allure --version
+          allure-combine --help
 
       - name: Run tests
         run: |
