@@ -65,7 +65,7 @@ jobs:
       - name: Combine Allure report
         if: always()
         run: |
-          allure-combine allure-report --dest allure-report
+          allure-combine allure-report
           test -f allure-report/complete.html
 
       - name: Upload test reports
