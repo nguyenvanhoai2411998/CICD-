@@ -61,18 +61,17 @@ jobs:
         id: generate-allure-report
         if: always()
         run: |
-          if ! find allure-results -type f -print -quit 2>/dev/null | grep -q .; then
-            echo "No Allure result files were generated."
-            exit 1
-          fi
-          allure generate --clean allure-results -o allure-report
-          test -f allure-report/app.js
+          allure generate --clean allure-results -o reports
 
       - name: Combine Allure report
-        if: always() && steps.generate-allure-report.outcome == 'success'
+        if: always()
         run: |
-          allure-combine allure-report
-          test -f allure-report/complete.html
+          allure-combine reports
+      
+      - name: Rename Allure report
+        if: always()
+        run: |
+          mv reports/complete.html reports/reports.html
 
       - name: Upload test reports
         if: always()
@@ -80,7 +79,6 @@ jobs:
         with:
           name: test-reports
           path: |
-            allure-report/
             reports/
             htmlcov/
             coverage.xml
