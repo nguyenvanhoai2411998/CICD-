@@ -60,7 +60,13 @@ jobs:
       - name: Generate Allure report
         if: always()
         run: |
-          allure generate allure-results -o allure-report
+          allure generate --clean allure-results -o allure-report
+
+      - name: Combine Allure report
+        if: always()
+        run: |
+          allure-combine allure-report --dest allure-report
+          test -f allure-report/complete.html
 
       - name: Upload test reports
         if: always()
