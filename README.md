@@ -55,7 +55,7 @@ The `requirements.txt` file installs the Python Allure integration and
 must also be installed with Node.js and have Java available on `PATH`:
 
 ```bash
-npm install -g allure allure-combine
+npm install -g allure-commandline@2.38.0
 allure --version
 allure-combine --help
 ```

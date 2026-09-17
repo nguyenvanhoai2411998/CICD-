@@ -42,7 +42,7 @@ jobs:
 
       - name: Install Allure
         run: |
-          npm install -g allure-commandline
+          npm install -g allure-commandline@2.38.0
           allure --version
           allure-combine --help
 
