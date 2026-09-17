@@ -4,6 +4,9 @@ import pytest
 import os
 
 def pytest_sessionfinish(session, exitstatus):
+    if os.getenv("GITHUB_ACTIONS") == "true":
+        return
+
     # Optional: Only run if an allure report directory or results exist
     allure_results_dir = "allure-results"
     allure_report_dir = "reports"
