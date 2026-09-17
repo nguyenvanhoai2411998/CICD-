@@ -32,7 +32,7 @@ def pytest_sessionfinish(session, exitstatus):
             f"{allure_report_dir}/complete.html", 
             f"{allure_report_dir}/reports.html")
         
-        shutil.rmtree(allure_results_dir, ignore_errors=True)
+        # shutil.rmtree(allure_results_dir, ignore_errors=True)
 
     except subprocess.CalledProcessError as e:
         print(f"Failed to generate combined Allure report: {e}")
