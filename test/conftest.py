@@ -1,11 +1,12 @@
 import subprocess
 import shutil
 import pytest
+import os
 
 def pytest_sessionfinish(session, exitstatus):
     # Optional: Only run if an allure report directory or results exist
     allure_results_dir = "allure-results"
-    allure_report_dir = "allure-report"
+    allure_report_dir = "reports"
 
     print("\n--- Generating Allure Report ---")
     try:
@@ -23,7 +24,12 @@ def pytest_sessionfinish(session, exitstatus):
             check=True,
             shell=True
         )
-        print(f"Done! Standalone report created at: {allure_report_dir}/combined_index.html")
+        print(f"Done! Standalone report created at: {allure_report_dir}/complete.html")
+        shutil.move(
+            f"{allure_report_dir}/complete.html", 
+            f"{allure_report_dir}/reports.html")
+        
+        shutil.rmtree(allure_results_dir, ignore_errors=True)
 
     except subprocess.CalledProcessError as e:
         print(f"Failed to generate combined Allure report: {e}")
